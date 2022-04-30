@@ -32,10 +32,6 @@ const pako = require('pako');
 //          hexStringToBuild is the only one that needs Three.js
 //          newBuildUsher is the only one that needs DynamoDB and pako
 
-function isValidHexadecimal(str) {
-    return str.match(/^[a-f0-9]{2,}$/i) !== null;
-}
-
 function isNumeric(str) {
     if (typeof str != "string")
         return false; // we only process strings!  
@@ -76,7 +72,7 @@ exports.handler = async (event) => {
         }
         console.log("blockNumber=" + JSON.stringify(event.params.querystring.blockNumber));
 
-        if (!event.params.querystring.hexString || !isValidHexadecimal(event.params.querystring.hexString)) {
+        if (!event.params.querystring.hexString) {
             reject(new Error("event.params.querystring.hexString is invalid or missing"));
             return;
         }
