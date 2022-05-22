@@ -146,16 +146,13 @@ exports.handler = async (event) => {
                                 reject(err);
                             }
                             else {
-                                console.log("Success", JSON.stringify(globalVarEntry));
+                                console.log("success getting buildIndices globalVar", JSON.stringify(globalVarEntry));
                                 var buildIndices = JSON.parse(globalVarEntry.Item.value);
-                                var bI = 0;
-                                while (bI < buildIndices.length) {
-                                    console.log("buildIndices[" + bI + "]=" + buildIndices[bI]);
-                                    bI++;
-                                }
                                 var buildIndicesSet = new Set(buildIndices); // convert to set to eliminate dupes
+                                console.log("adding " + event.params.querystring.tileIndex + " to buildIndices globalVar...");
                                 buildIndicesSet.add(event.params.querystring.tileIndex * 1);
                                 buildIndices = [...buildIndicesSet]; // back to array
+                                console.log("done. Array is now " + JSON.stringify(buildIndices));
                                 var params2 = {
                                     TableName: "EtheriaGlobalVars",
                                     Item: {
