@@ -120,7 +120,7 @@ exports.handler = async (event) => {
                         'build': compressed,
                         'tileIndex': event.params.querystring.tileIndex,
                         'version': event.params.querystring.version,
-                        'hexString': event.params.querystring.hexString
+//                        'hexString': event.params.querystring.hexString // large builds won't fit if we include this full hex string. Sucks but w/e
                     }
                 };
 
