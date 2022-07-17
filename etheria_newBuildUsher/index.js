@@ -195,7 +195,7 @@ exports.handler = async (event) => {
 											console.log("adding " + event.params.querystring.tileIndex + " to buildIndices globalVar...");
 											buildIndicesSet.add(event.params.querystring.tileIndex * 1);
 											buildIndices = [...buildIndicesSet]; // back to array
-											console.log("done. Array is now " + JSON.stringify(buildIndices));
+//											console.log("done. Array is now " + JSON.stringify(buildIndices));
 											var params2 = {
 												TableName: "EtheriaGlobalVars",
 												Item: {
@@ -238,7 +238,7 @@ exports.handler = async (event) => {
 									console.log("adding " + event.params.querystring.tileIndex + " to buildIndices globalVar...");
 									buildIndicesSet.add(event.params.querystring.tileIndex * 1);
 									buildIndices = [...buildIndicesSet]; // back to array
-									console.log("done. Array is now " + JSON.stringify(buildIndices));
+//									console.log("done. Array is now " + JSON.stringify(buildIndices));
 									var params2 = {
 										TableName: "EtheriaGlobalVars",
 										Item: {
