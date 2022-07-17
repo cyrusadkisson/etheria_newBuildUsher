@@ -98,7 +98,7 @@ exports.handler = async (event) => {
 				"params": {
 					"path": {},
 					"querystring": {
-						"hexString": event.params.querystring.hexString
+						"hexString": event.params.querystring.hexString 
 					}
 				}
 			}) // pass params
