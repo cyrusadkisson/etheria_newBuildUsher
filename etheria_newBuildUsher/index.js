@@ -12,15 +12,15 @@ const pako = require('pako');
 // this "usher" ("helper", "factory", "manager" whatever) function does a few middleware things so 
 // the other lambdas can stay clean and extremely *micro* service-y
 
-// First, mapUpdaterAndEventDetectorDaemon is responsible for detecting Etheria state changes, updating the cached maps and firing "events" (discord msgs, delegating builds, etc)
+// First, etheria_stateDaemon is responsible for detecting Etheria state changes, updating the cached maps and firing "events" (discord msgs, delegating builds, etc)
 //          but it is NOT responsible for generating renderable builds nor updating their storage (DynamoDB for now)
 //
-// Second, hexStringToBuild is entirely responsible for changing a hex string (from the chain) into Three.js data
+// Second, etheria_hexStringToBuild is entirely responsible for changing a hex string (from the chain) into Three.js data
 //          but it is NOT responsible for compressing said data (required for dynamo) or storing in the database (btw lambda-to-lambda limit is 6 MB... plenty)
 //
 // This function 
-//      1. Takes the "event" (hexString, tileIndex, blockNumber, version) from mapupdaterAndEventDetectorDaemon when a new build is made
-//      2. Asks hexStringToBuild to generate the Three.js hexShapes object
+//      1. Takes the "event" (hexString, tileIndex, blockNumber, version) from etheria_stateDaemon when a new build is made
+//      2. Asks etheria_hexStringToBuild to generate the Three.js hexShapes object
 //      3. Compresses the response
 //      4. Inserts in the database
 //      5. Updates the buildIndices globalvar noting the new build
@@ -28,9 +28,9 @@ const pako = require('pako');
 // Note: With this delineation, we can easily insert new builds in the DB for whatever tileIndex and blockNumber 
 //          we want without needing a blockchain event to fire
 //       It also limits what dependencies each of these Lambdas needs. 
-//          E.g. mapUpdaterAndEventDetectorDaemon is the only one that needs S3, web3 and Discord API (axios)
-//          hexStringToBuild is the only one that needs Three.js
-//          newBuildUsher is the only one that needs DynamoDB and pako
+//          E.g. etheria_stateDaemon is the only one that needs S3, web3 and Discord API (axios)
+//          etheria_hexStringToBuild is the only one that needs Three.js
+//          etheria_newBuildUsher is the only one that needs pako
 
 function isNumeric(str) {
 	if (typeof str != "string")
