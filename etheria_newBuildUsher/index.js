@@ -92,7 +92,7 @@ exports.handler = async (event) => {
 		console.log("version=" + event.params.querystring.version);
 
 		lambda.invoke({
-			FunctionName: "arn:aws:lambda:us-east-1:" + AWS_ACCOUNT_ID + ":function:etheria_hexStringToBuild",
+			FunctionName: "arn:aws:lambda:us-east-1:" + process.env.AWS_ACCOUNT_ID + ":function:etheria_hexStringToBuild",
 			Payload: JSON.stringify({
 				"body-json": {},
 				"params": {
